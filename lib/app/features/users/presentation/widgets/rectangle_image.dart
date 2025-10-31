@@ -17,14 +17,14 @@ class RectangleImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const borderRadius = BorderRadius.all(Radius.circular(8));
+    const borderRadius = BorderRadius.all(Radius.circular(16));
 
     return Container(
       height: height,
       width: width,
       decoration: BoxDecoration(
         border: Border.all(width: 2, color: borderColor),
-        borderRadius: borderRadius,
+        borderRadius: BorderRadius.all(Radius.circular(18)),
       ),
       clipBehavior: Clip.hardEdge,
       alignment: Alignment.center,

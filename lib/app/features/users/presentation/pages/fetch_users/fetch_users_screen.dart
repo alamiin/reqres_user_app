@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:reqres_user_app/app/features/users/presentation/pages/fetch_users/widgets/all_users_widgets.dart';
+import 'package:reqres_user_app/app/features/users/presentation/pages/fetch_users/widgets/data_not_found_widget.dart';
 import 'package:reqres_user_app/app/features/users/presentation/pages/fetch_users/widgets/search_widget.dart';
 import 'package:reqres_user_app/app/features/users/presentation/provider/user_provider.dart';
 
@@ -47,28 +48,7 @@ class _FetchUsersScreenState extends State<FetchUsersScreen> {
                     )
                         : provider.filteredUsers.isNotEmpty
                         ? AllUsersWidgets(userList: provider.filteredUsers)
-                        : Center(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            AppTextData.noInternetConnection,
-                            style: titleText(),
-                            textAlign: TextAlign.center,
-                          ),
-                          ElevatedButton(
-                              onPressed: () {
-                                Provider.of<UserProvider>(context,
-                                    listen: false)
-                                    .fetchUsers();
-                              },
-                              child: Text(
-                                AppTextData.reload,
-                                style: bodyText(),
-                              ))
-                        ],
-                      ),
-                    )),
+                        : DataNotFoundWidget()),
                 provider.isBottomLoading
                     ? Container(
                   height: 50,

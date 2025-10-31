@@ -8,10 +8,12 @@ class UserProvider with ChangeNotifier{
   UserProvider({required this.getUsersUseCase});
 
   bool isLoading = false;
+  bool isNoUserFound = false;
   bool isBottomLoading = false;
   List<UserModel> userList = [];
   List<UserModel> filteredUsers = [];
   String message = "";
+  String searchQuery = "";
   int pageCounter = 1;
   int totalPages = 1;
 
@@ -86,6 +88,8 @@ class UserProvider with ChangeNotifier{
     final q = query.trim().toLowerCase();
     if(q.isEmpty){
       filteredUsers = List.from(userList);
+      isNoUserFound = false;
+      message = "";
       notifyListeners();
       return;
     }
@@ -97,8 +101,18 @@ class UserProvider with ChangeNotifier{
       return first.contains(q) || last.contains(q) || fullName.contains(q);
     }).toList();
 
+    if(filteredUsers.isEmpty){
+      message = "No users found for \"$query\"";
+      isNoUserFound = true;
+    }else{
+      isNoUserFound = false;
+      message = "";
+    }
+
     notifyListeners();
   }
+
+
 
 
 }

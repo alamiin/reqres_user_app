@@ -14,15 +14,23 @@ The app demonstrates clean architecture, MVVM design pattern, and Provider state
 -  **Empty Search State:** Display a friendly message when no results are found
 
 ---
-------```Users```--------------```Profile```---------
-<img src="images/user_list.jpeg" height="400" width="200" title = "Users">   <img src="images/details.jpeg" height="400" width="200" title = "Profile">   
 
-------```Search```--------------```No User Found```--------
-<img src="images/search.jpeg" height="400" width="200" title = "Search">   <img src="images/no_users.jpeg" height="400" width="200" title = "No User Found">
-------```No Internet Connection```------
-<img src="images/no_internet.jpeg" height="400" width="200" title = "No Internet Connection">
+## Screenshots
 
+### Users & Profile
+| Users | Profile |
+|:------:|:--------:|
+| <img src="images/user_list.jpeg" height="400" width="200" title="Users"/> | <img src="images/details.jpeg" height="400" width="200" title="Profile"/> |
 
+### Search & No User Found
+| Search | No User Found |
+|:-------:|:--------------:|
+| <img src="images/search.jpeg" height="400" width="200" title="Search"/> | <img src="images/no_users.jpeg" height="400" width="200" title="No User Found"/> |
+
+### No Internet Connection
+| No Internet Connection |
+|:----------------------:|
+| <img src="images/no_internet.jpeg" height="400" width="200" title="No Internet Connection"/> |
 
 ---
 

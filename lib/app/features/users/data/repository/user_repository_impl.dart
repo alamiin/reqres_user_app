@@ -26,10 +26,6 @@ class UserRepositoryImpl implements UserRepository {
           queryParameters: queryParameter
       );
 
-      print("---------------------------------------------");
-      print(httpResponse.toString());
-      print("---------------------------------------------");
-
 
       if (httpResponse.statusCode == HttpStatus.ok) {
         final successRepoData = UserResponse.fromJson(httpResponse.data);

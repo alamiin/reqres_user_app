@@ -18,8 +18,8 @@ class UserResponse {
   factory UserResponse.fromJson(Map<String, dynamic> json) {
 
     List<UserModel> items = [];
-    if (json['items'] != null) {
-      json['items'].forEach((v) {
+    if (json['data'] != null) {
+      json['data'].forEach((v) {
         items.add(UserModel.fromJson(v));
       });
     }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reqres_user_app/app/features/users/data/model/user_model.dart';
 
 import '../../features/users/presentation/pages/details_user/details_user_screen.dart';
 import '../../features/users/presentation/pages/fetch_users/fetch_users_screen.dart';
@@ -14,7 +15,7 @@ class AppRoute{
       case defaultRoute:
         return _materialRoute(const FetchUsersScreen());
       case userDetailsRoute:
-        return _materialRoute(DetailsUserScreen());
+        return _materialRoute(DetailsUserScreen(userModel: settings.arguments as UserModel));
 
       default:
         return _materialRoute(const FetchUsersScreen());

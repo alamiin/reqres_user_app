@@ -10,8 +10,10 @@ class UserProvider with ChangeNotifier{
   bool isLoading = false;
   bool isBottomLoading = false;
   List<UserModel> userList = [];
+  List<UserModel> filteredUsers = [];
   String message = "";
   int pageCounter = 1;
+  int totalPages = 1;
 
   void updateLoader(bool state){
     isLoading = state;
@@ -34,17 +36,69 @@ class UserProvider with ChangeNotifier{
     pageCounter = 1;
     final dataState = await getUsersUseCase(params: pageCounter);
 
-    if (dataState is DataSuccess && dataState.data!.data!.isNotEmpty) {
-      userList = [];
-      pageCounter++;
-      userList = dataState.data!.data!;
-    }
-
-    if (dataState is DataFailed) {
-      message = dataState.error!.message!;
+    switch(dataState){
+      case DataSuccess():{
+        userList = [];
+        pageCounter++;
+        userList = dataState.data!.data;
+        totalPages = dataState.data!.totalPages;
+        filteredUsers = List.from(userList);
+        if(filteredUsers.isEmpty || filteredUsers.length == userList.length - dataState.data!.data!.length){
+          filteredUsers.addAll(dataState.data!.data!);
+        }
+      }
+      case DataFailed():{
+        message = dataState.error!.message!;
+      }
     }
 
     updateLoader(false);
   }
+
+  void fetchScrollUsers() async {
+
+    if(isLoading || isBottomLoading || pageCounter > totalPages){
+      return;
+    }
+
+    updateBottomLoader(true);
+
+    final dataState = await getUsersUseCase(params: pageCounter);
+
+    switch(dataState){
+      case DataSuccess():{
+        if(pageCounter == 1){
+          userList = [];
+        }
+        pageCounter++;
+        userList.addAll(dataState.data!.data!);
+        filteredUsers = List.from(userList);
+      }
+      case DataFailed():{
+        message = dataState.error!.message!;
+      }
+    }
+
+    updateBottomLoader(false);
+  }
+
+  void searchUsers(String query){
+    final q = query.trim().toLowerCase();
+    if(q.isEmpty){
+      filteredUsers = List.from(userList);
+      notifyListeners();
+      return;
+    }
+
+    filteredUsers = userList.where((u){
+      final first = (u.firstName ?? '').toLowerCase();
+      final last = (u.lastName ?? '').toLowerCase();
+      final fullName = '${first} ${last}'.trim();
+      return first.contains(q) || last.contains(q) || fullName.contains(q);
+    }).toList();
+
+    notifyListeners();
+  }
+
 
 }

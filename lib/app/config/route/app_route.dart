@@ -7,13 +7,13 @@ import '../../features/users/presentation/pages/fetch_users/fetch_users_screen.d
 
 class AppRoute{
   static const String defaultRoute = "/";
-  static const String detailsRepoRoute = "/detailsUser";
+  static const String userDetailsRoute = "/detailsUser";
 
   static Route onGenerateRoutes(RouteSettings settings) {
     switch (settings.name) {
       case defaultRoute:
         return _materialRoute(const FetchUsersScreen());
-      case detailsRepoRoute:
+      case userDetailsRoute:
         return _materialRoute(DetailsUserScreen());
 
       default:
